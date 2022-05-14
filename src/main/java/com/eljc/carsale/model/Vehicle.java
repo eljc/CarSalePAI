@@ -1,39 +1,40 @@
 package com.eljc.carsale.model;
 
-import java.math.BigDecimal;
-
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
 public class Vehicle {
 
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@ManyToOne
 	private Models model;
-	
-	private BigDecimal price;
-	
-	private String description;
-	
-	private VehicleCondition condition;
-	
+
+	@OneToOne(mappedBy = "vehicle", cascade = CascadeType.ALL)
+	@PrimaryKeyJoinColumn
 	private VehicleInfo info;
 	
+	private String description;
+/*
+	@Enumerated(EnumType.STRING)
+	private VehicleCondition condition;
+*/	
 	public Vehicle() {
-		
+
 	}
-	
-	public Vehicle(Models model, BigDecimal price, String description, VehicleCondition condition, VehicleInfo info) {
+
+	public Vehicle(Models model, String description, VehicleInfo info) {
 		this.model = model;
-		this.price = price;
 		this.description = description;
-		this.condition = condition;
 		this.info = info;
 	}
 
@@ -53,13 +54,6 @@ public class Vehicle {
 		this.model = model;
 	}
 
-	public BigDecimal getPrice() {
-		return price;
-	}
-
-	public void setPrice(BigDecimal price) {
-		this.price = price;
-	}
 
 	public String getDescription() {
 		return description;
@@ -68,7 +62,7 @@ public class Vehicle {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
+/*
 	public VehicleCondition getCondition() {
 		return condition;
 	}
@@ -76,7 +70,7 @@ public class Vehicle {
 	public void setCondition(VehicleCondition condition) {
 		this.condition = condition;
 	}
-
+*/
 	public VehicleInfo getInfo() {
 		return info;
 	}
@@ -84,5 +78,7 @@ public class Vehicle {
 	public void setInfo(VehicleInfo info) {
 		this.info = info;
 	}
+
+	
 
 }

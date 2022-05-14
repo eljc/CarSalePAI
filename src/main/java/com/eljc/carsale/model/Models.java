@@ -1,12 +1,17 @@
 package com.eljc.carsale.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Models {
@@ -18,9 +23,13 @@ public class Models {
 	
 	@Enumerated(EnumType.STRING)
 	private BodyStyle style;
-
+	
 	@ManyToOne
 	private Makes make;
+	
+	@OneToMany
+	@JoinColumn(name="make_id", nullable = false)
+	private List<Vehicle> vehicle = new ArrayList<>();
 	
 	public Models(){
 		
@@ -62,6 +71,14 @@ public class Models {
 
 	public void setMake(Makes make) {
 		this.make = make;
+	}
+
+	public List<Vehicle> getVehicle() {
+		return vehicle;
+	}
+
+	public void setVehicle(List<Vehicle> vehicle) {
+		this.vehicle = vehicle;
 	}
 	
 	

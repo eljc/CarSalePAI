@@ -2,20 +2,51 @@ package com.eljc.carsale.model;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
+
+@Entity
 public class VehicleInfo {
 
+	@Id
+	@Column(name = "vehicle_id")
+	private Long idInfo;
+
+	@OneToOne
+	@MapsId
+	@JoinColumn(name = "vehicle_id")
+	private Vehicle vehicle;
+
 	public String transmission;
-	
+
 	public VehicleColor color;
-	
+
 	public VehicleFuel fuel;
-	
+
 	public String engine;
-	
+
 	public BigDecimal miles;
 
-	
-	
+	public Long getIdInfo() {
+		return idInfo;
+	}
+
+	public void setIdInfo(Long idInfo) {
+		this.idInfo = idInfo;
+	}
+
+	public Vehicle getVehicle() {
+		return vehicle;
+	}
+
+	public void setVehicle(Vehicle vehicle) {
+		this.vehicle = vehicle;
+	}
+
 	public String getTransmission() {
 		return transmission;
 	}
@@ -55,5 +86,5 @@ public class VehicleInfo {
 	public void setMiles(BigDecimal miles) {
 		this.miles = miles;
 	}
-	
+
 }

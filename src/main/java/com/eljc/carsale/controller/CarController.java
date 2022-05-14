@@ -16,7 +16,7 @@ import com.eljc.carsale.model.Vehicle;
 import com.eljc.carsale.repository.CarRepository;
 
 @RestController
-@RequestMapping("/home")
+@RequestMapping("/car")
 public class CarController {
 
 	@Autowired
@@ -36,7 +36,7 @@ public class CarController {
 	// paginação mais simples
 	// page=0&size=10&sort=id,desc
 	// caso não passe os campos de ordena usa o @PagebleDefault
-	@Cacheable(value = "lisCar")
+/*	@Cacheable(value = "lisCar")
 	@GetMapping
 	public Page<Vehicle> listPagination(@RequestParam(required = false) String nameCar,
 			@PageableDefault(sort = "id", direction = Direction.DESC) Pageable pagination) {
@@ -45,4 +45,5 @@ public class CarController {
 
 		return vehicles;
 	}
+*/	
 }

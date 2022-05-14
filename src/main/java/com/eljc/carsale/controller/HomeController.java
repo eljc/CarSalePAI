@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,6 +50,7 @@ public class HomeController {
 	}
 	@PostMapping
 	@Transactional
+	@CacheEvict(value="listModel", allEntries = true) // clean cache
 	public ResponseEntity<ModelsDTO> inserModel(@RequestBody @Valid ModelForm form, UriComponentsBuilder uriBuilder) {
 		Models model = form.converter(makesRepository);
 		modelsRepository.save(model);
