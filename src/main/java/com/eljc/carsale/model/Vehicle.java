@@ -1,5 +1,8 @@
 package com.eljc.carsale.model;
 
+import java.math.BigDecimal;
+
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,7 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.PostLoad;
+import javax.persistence.PrePersist;
 import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Transient;
 
 @Entity
 public class Vehicle {
@@ -24,10 +30,29 @@ public class Vehicle {
 	private VehicleInfo info;
 	
 	private String description;
-/*
-	@Enumerated(EnumType.STRING)
+
+	@Transient
 	private VehicleCondition condition;
-*/	
+	
+	@Basic
+	private int idConditionValue;
+	
+	private BigDecimal price;
+	
+	@PostLoad
+    void fillTransient() {
+        if (idConditionValue > 0) {
+            this.condition = VehicleCondition.of(idConditionValue);
+        }
+    }
+
+    @PrePersist
+    void fillPersistent() {
+        if (condition != null) {
+            this.idConditionValue = condition.getVehicleCondition();
+        }
+    }
+	
 	public Vehicle() {
 
 	}
@@ -62,7 +87,7 @@ public class Vehicle {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-/*
+
 	public VehicleCondition getCondition() {
 		return condition;
 	}
@@ -70,7 +95,7 @@ public class Vehicle {
 	public void setCondition(VehicleCondition condition) {
 		this.condition = condition;
 	}
-*/
+
 	public VehicleInfo getInfo() {
 		return info;
 	}
@@ -79,6 +104,12 @@ public class Vehicle {
 		this.info = info;
 	}
 
-	
+	public BigDecimal getPrice() {
+		return price;
+	}
+
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
 
 }

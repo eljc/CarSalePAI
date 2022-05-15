@@ -1,7 +1,6 @@
 package com.eljc.carsale.controller.dto;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import org.springframework.data.domain.Page;
 
 import com.eljc.carsale.model.Makes;
 
@@ -28,8 +27,8 @@ public class MakesDTO {
 		this.name = name;
 	}
 
-	public static List<MakesDTO> converter(List<Makes> makes) {
-		return makes.stream().map(MakesDTO::new).collect(Collectors.toList());
+	public static Page<MakesDTO> converter(Page<Makes> makes) {
+		return makes.map(MakesDTO::new);
 	}
 	
 }

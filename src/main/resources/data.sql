@@ -17,3 +17,16 @@ INSERT INTO MODELS (model_name, style, make_id) VALUES
 ('3 Series 330i', 'SEDAN', 2),
 ('Ranger', 'UTILITY', 8),
 ('Mustang GT', 'COUPE', 8);
+
+INSERT INTO carsale.`user`
+(email, password)
+VALUES('test@email.com', '$2a$10$sFKmbxbG4ryhwPNx/l3pgOJSt.fW1z6YcUnuE2X8APA/Z3NI/oSpq');
+
+
+INSERT INTO carsale.roles
+(name)
+VALUES('admin');
+
+INSERT INTO carsale.user_roles
+(user_id, roles_id)
+VALUES(1, 1);
