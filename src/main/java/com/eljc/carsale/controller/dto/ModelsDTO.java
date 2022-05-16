@@ -1,7 +1,6 @@
 package com.eljc.carsale.controller.dto;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import org.springframework.data.domain.Page;
 
 import com.eljc.carsale.model.Models;
 
@@ -16,10 +15,16 @@ public class ModelsDTO {
 		this.name = model.getModelName();
 	}
 
+	/*
 	public static List<ModelsDTO> converter(List<Models> models) {
 		return models.stream().map(ModelsDTO::new).collect(Collectors.toList());
 	}
-
+*/
+	
+	public static Page<ModelsDTO> converter(Page<Models> models) {
+		return models.map(ModelsDTO::new);
+	}
+	
 	public Long getId() {
 		return id;
 	}
