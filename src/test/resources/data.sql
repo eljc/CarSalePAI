@@ -1,0 +1,5 @@
+INSERT INTO makes VALUES (1, 'Audi');
+
+INSERT INTO makes VALUES (2, 'BMW');
+
+INSERT INTO MODELS VALUES (1, 'A5', 'WAGON', 1);

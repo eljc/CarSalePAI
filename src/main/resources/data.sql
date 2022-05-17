@@ -1,4 +1,4 @@
-INSERT INTO MAKES (make_name) VALUES 
+INSERT INTO makes (make_name) VALUES 
  ('Audi'), ('BMW'),
 ('Bugatti'), ('Chevrolet'),
 ('Dodge'), ('Ferrari'), ('Fiat'), ('Ford'), ('GM'), ('GMC'), ('Honda'),

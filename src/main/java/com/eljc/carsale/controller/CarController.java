@@ -1,5 +1,9 @@
 package com.eljc.carsale.controller;
 
+import java.util.Optional;
+
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Page;
@@ -7,6 +11,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -71,17 +77,6 @@ public class CarController {
 		Page<Models> modelPage = modelRepository.findByMakeId(idMake, pagination);
 		
 		return ModelsDTO.converter(modelPage);
-		/*
-		  if(idMake == null) {
-		 
-			Page<Makes> makePages = makeRepository.findAll(pagination);
-			return MakesDTO.converter(makePages);
-		}else {
-			Page<Makes> makePages = makeRepository.findByMakeName(makeName, pagination);
-			return MakesDTO.converter(makePages);
-		}
-		*/
-		 
 	}
 	
 	@GetMapping("/models/{id}")
@@ -91,18 +86,7 @@ public class CarController {
 		
 		Page<Models> modelPage = modelRepository.findByMakeId(id, pagination);
 		
-		return ModelsDTO.converter(modelPage);
-		/*
-		  if(idMake == null) {
-		 
-			Page<Makes> makePages = makeRepository.findAll(pagination);
-			return MakesDTO.converter(makePages);
-		}else {
-			Page<Makes> makePages = makeRepository.findByMakeName(makeName, pagination);
-			return MakesDTO.converter(makePages);
-		}
-		*/
-		 
+		return ModelsDTO.converter(modelPage);			 
 	}
 	
 	
@@ -116,6 +100,18 @@ public class CarController {
 		Page<Vehicle> vehicles = carRepository.findAll(pagination);
 
 		return vehicles;
+	}
+	
+	@DeleteMapping("/models/{id}")
+	@Transactional
+	@CacheEvict(value = "listModels", allEntries = true)
+	public ResponseEntity<?> remove(@PathVariable Long id){
+		Optional<Models> option = modelRepository.findById(id);
+		if(option.isPresent()) {
+			modelRepository.deleteById(id);
+			return ResponseEntity.ok().build();
+		}
+		return ResponseEntity.notFound().build();
 	}
 	
 }
