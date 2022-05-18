@@ -19,7 +19,7 @@ import com.eljc.carsale.repository.UserRepository;
 
 @EnableWebSecurity
 @Configuration
-@Profile("prod")
+@Profile(value = {"prod", "test"})
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired

@@ -14,7 +14,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 @Service
-@Profile("prod")
+@Profile(value = {"prod", "test"})
 public class TokenService {
 	
 	@Value("${forum.jwt.expiration}")
